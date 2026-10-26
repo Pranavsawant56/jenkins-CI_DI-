@@ -5,7 +5,7 @@ const fetch = (...args) =>
 
 const app = express();
 const port = Number(process.env.PORT) || 4000;
-const backendUrl = (process.env.BACKEND_URL || "http://localhost:8000")
+const backendUrl = (process.env.BACKEND_URL || "http://localhost:5000")
     .replace(/\/+$/, "");
 
 // Allow Express to read HTML form data

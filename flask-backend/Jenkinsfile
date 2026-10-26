@@ -1,0 +1,34 @@
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                echo 'Getting latest Flask backend code from GitHub'
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                    python3 -m venv venv
+                    ./venv/bin/pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Deploy Backend') {
+            steps {
+                sh '''
+                    if pm2 describe flask-backend >/dev/null 2>&1; then
+                        pm2 restart flask-backend
+                    else
+                        pm2 start "$PWD/venv/bin/python" --name flask-backend -- -u "$PWD/app.py"
+                    fi
+                '''
+            }
+        }
+    }
+}
