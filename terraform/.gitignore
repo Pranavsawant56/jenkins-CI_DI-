@@ -1,0 +1,20 @@
+# Terraform working directory and downloaded providers
+.terraform/
+
+# Local state and state backups
+*.tfstate
+*.tfstate.*
+
+# Local variable values
+*.tfvars
+*.tfvars.json
+
+# Crash logs
+crash.log
+crash.*.log
+
+# CLI override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
