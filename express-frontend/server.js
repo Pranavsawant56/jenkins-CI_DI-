@@ -4,7 +4,7 @@ const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const app = express();
-const port = Number(process.env.PORT) || 4000;
+const port = Number(process.env.PORT) || 3000;
 const backendUrl = (process.env.BACKEND_URL || "http://localhost:5000")
     .replace(/\/+$/, "");
 
