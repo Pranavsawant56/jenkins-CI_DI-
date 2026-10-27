@@ -1,4 +1,4 @@
-
+```groovy
 pipeline {
     agent any
 
@@ -23,16 +23,9 @@ pipeline {
 
         stage('Deploy Backend') {
             steps {
-                dir('flask-backend') {
-                    sh '''
-                        if pm2 describe flask-backend >/dev/null 2>&1; then
-                            pm2 restart flask-backend
-                        else
-                            pm2 start "$PWD/venv/bin/python" --name flask-backend -- -u "$PWD/app.py"
-                        fi
-                    '''
-                }
+                sh 'sudo -n /usr/local/bin/jenkins-deploy-app flask'
             }
         }
     }
 }
+```
