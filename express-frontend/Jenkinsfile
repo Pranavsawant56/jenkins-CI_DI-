@@ -1,11 +1,11 @@
-
+```groovy
 pipeline {
     agent any
 
     stages {
         stage('Checkout Code') {
             steps {
-                echo 'Getting latest frontend code from GitHub'
+                echo 'Getting latest Express frontend code from GitHub'
                 checkout scm
             }
         }
@@ -20,16 +20,9 @@ pipeline {
 
         stage('Deploy Frontend') {
             steps {
-                dir('express-frontend') {
-                    sh '''
-                        if pm2 describe express-frontend >/dev/null 2>&1; then
-                            pm2 restart express-frontend
-                        else
-                            pm2 start server.js --name express-frontend
-                        fi
-                    '''
-                }
+                sh 'sudo -n /usr/local/bin/jenkins-deploy-app express'
             }
         }
     }
 }
+```
