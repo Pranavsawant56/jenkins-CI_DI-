@@ -12,19 +12,23 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                dir('express-frontend') {
+                    sh 'npm install'
+                }
             }
         }
 
         stage('Deploy Frontend') {
             steps {
-                sh '''
-                    if pm2 describe express-frontend >/dev/null 2>&1; then
-                        pm2 restart express-frontend
-                    else
-                        pm2 start server.js --name express-frontend
-                    fi
-                '''
+                dir('express-frontend') {
+                    sh '''
+                        if pm2 describe express-frontend >/dev/null 2>&1; then
+                            pm2 restart express-frontend
+                        else
+                            pm2 start server.js --name express-frontend
+                        fi
+                    '''
+                }
             }
         }
     }
